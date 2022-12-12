@@ -55,7 +55,7 @@ disableHugoGeneratorInject = false
 
   # Metadata mostly used in document's head
   # 
-  description = "Nice theme for homepages and blogs"
+  description = ""
   keywords = ""
   images = ["/img/0xhunt3r.png"]
 
@@ -146,10 +146,9 @@ disableHugoGeneratorInject = false
 
   # Uncomment this if you want a portrait on your start page
   #
-  # [params.portrait]
-  #   path     = "/img/image.jpg"
-  #   alt      = "Portrait"
-  #   maxWidth = "50px"
+   [params.portrait]
+     path     = "/img/0xhunt3r.png"
+     alt      = "0xhunt3r"
 
   # Social icons
   [[params.social]]
