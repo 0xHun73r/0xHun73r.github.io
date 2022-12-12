@@ -1,6 +1,5 @@
 baseURL = "https://blog.0xhunt3r.com"
 title   = "0xHunt3r"
-languageCode = "en-us"
 theme = "hello-friend-ng"
 
 PygmentsCodeFences = true
