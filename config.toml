@@ -57,7 +57,7 @@ disableHugoGeneratorInject = false
   # 
   description = "Nice theme for homepages and blogs"
   keywords = ""
-  images = [""]
+  images = ["/img/0xhunt3r.png"]
 
   # Home subtitle of the index page.
   #
