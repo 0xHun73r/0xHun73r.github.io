@@ -56,7 +56,7 @@ disableHugoGeneratorInject = false
   # 
   description = ""
   keywords = ""
-  images = ["/img/0xhunt3r.jpg"]
+  images = ["/img/0xhunt3r.png"]
 
   # Home subtitle of the index page.
   #
@@ -146,7 +146,7 @@ disableHugoGeneratorInject = false
   # Uncomment this if you want a portrait on your start page
   #
    [params.portrait]
-     path     = "/img/0xhunt3r.jpg"
+     path     = "/img/0xhunt3r.png"
      alt      = "0xhunt3r"
 
   # Social icons
