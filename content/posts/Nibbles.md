@@ -48,29 +48,31 @@ HOP RTT      ADDRESS
 #### Port 80 - 
 
 It looks like a static webpage
-![[static_page.png]]
+
+{{< image src="/static/static_page.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
 
 Since there are only two ports open I will run gobuster and see if I can find any directories that may be on the site.
 
-![[gobuster_1.png]]
+{{< image src="/static/gobuster_1.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
 
 No luck with directory brute-forcing, but if I check the source of the webpage we get a bit of a hint.
 
-![[view_source.png]]
+{{< image src="/static/view_source.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
 
 If i navigate to the webpage `http://$IP/nibbleblog/` it looks like a blog page.
 
-![[nibbles_blog.png]]
+{{< image src="/static/nibbles_blog.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
 
 Using gobuster we can look for subdirectories inside /nibbleblog/ 
 
-![[gobuster_2.png]]
+{{< image src="/static/gobuster_2.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
 
 Navigating to the readme file at `http://$IP/nibbleblog/README`
 
 we can see the version the blog is running
 
-![[Pasted image 20221218162251.png]]
+{{< image src="/static/nibbles_version.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
+
 After doing some research on google, I found there is a RCE on this version of nibbleblog, but we need to be authenticated. 
 
 I will try default credentials i.e. `admin:admin` etc.
@@ -82,7 +84,8 @@ after doing this for a bit I tried `admin:nibbles` and it was successful! Now we
 I will be using this script from github (https://github.com/dix0nym/CVE-2015-6967) combined with the php reverse shell which can be found here (https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php)
 
 when you setup the php reverse shell be sure to edit the file and add your IP & port that you will be listening on.
-![[php_revshell.png]]
+
+{{< image src="/static/php_revshell.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
 
 Once finished you can proceed with these steps
 
@@ -100,7 +103,7 @@ python3 exploit.py --url http://10.129.30.217/nibbleblog/ --username admin --pas
 
 After running the script check your reverse shell and you should see the following - 
 
-![[nc_shell.png]]
+{{< image src="/static/nc_shell.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
 
 Upgrading our shell (make the reverse shell more stable)
 
@@ -117,7 +120,8 @@ python3 -c 'import pty;pty.spawn("/bin/bash")'
 ```
 
 after running you should see this - 
-![[shell_upgrade.png]]
+
+{{< image src="/static/shell_upgrade1.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
 
 Now we can make it even better with the following - 
 
@@ -131,7 +135,7 @@ When in your host shell
 stty raw -echo ; fg (Hit enter, nothing will happen, but hit enter again and you will be back into the shell as nibbler@Nibbles)
 ```
 
-![[shell_upgrade2.png]]
+{{< image src="/static/shell_upgrade2.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
 
 Next we can export TERM 
 
@@ -143,7 +147,7 @@ export TERM=xterm-256color
 
 As the user nibbler we can run a script using sudo 
 
-![[sudo_privs.png]]
+{{< image src="/static/sudo_privs.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
 
 the files are zipped up but we can fix that.
 
@@ -183,7 +187,7 @@ bash -p
 
 After running that you should see this - 
 
-![[suid_abuse.png]]
+{{< image src="/static/suid_abuse.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
 
 and if you run whoami it will say `root`
 
