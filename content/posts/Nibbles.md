@@ -1,6 +1,6 @@
 ---
 title: "HTB Nibbles"
-date: 2022-12-18T18:22:03-05:00
+date: 2022-12-18T19:22:03-05:00
 draft: false
 ---
 
