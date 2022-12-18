@@ -135,7 +135,7 @@ When in your host shell
 stty raw -echo ; fg (Hit enter, nothing will happen, but hit enter again and you will be back into the shell as nibbler@Nibbles)
 ```
 
-{{< image src="/static/shell_upgrade2.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
+{{< image src="/static/shell_upgrade2.png" alt="Error100" position="center" style="border-radius: 8px;" >}}
 
 Next we can export TERM 
 
