@@ -5,6 +5,7 @@ draft: false
 ---
 
 #### Initial nmap
+
 ```bash
 sudo nmap -p- -T5 $IP
 
@@ -15,7 +16,6 @@ PORT   STATE SERVICE
 22/tcp open  ssh
 80/tcp open  http
 ```
-
 #### Concentrated nmap
 
 ```bash
@@ -44,34 +44,33 @@ HOP RTT      ADDRESS
 1   42.51 ms 10.10.14.1
 2   42.63 ms 10.129.30.217
 ```
-
 #### Port 80 - 
 
 It looks like a static webpage
 
-{{< image src="/static/static_page.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
+{{< image src="/static/static_page.png" alt="static" position="center" style="border-radius: 8px;" >}}
 
 Since there are only two ports open I will run gobuster and see if I can find any directories that may be on the site.
 
-{{< image src="/static/gobuster_1.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
+{{< image src="/static/gobuster_1.png" alt="gobuster_1" position="center" style="border-radius: 8px;" >}}
 
 No luck with directory brute-forcing, but if I check the source of the webpage we get a bit of a hint.
 
-{{< image src="/static/view_source.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
+{{< image src="/static/view_source.png" alt="source_1" position="center" style="border-radius: 8px;" >}}
 
 If i navigate to the webpage `http://$IP/nibbleblog/` it looks like a blog page.
 
-{{< image src="/static/nibbles_blog.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
+{{< image src="/static/nibbles_blog.png" alt="nibbles_blog" position="center" style="border-radius: 8px;" >}}
 
 Using gobuster we can look for subdirectories inside /nibbleblog/ 
 
-{{< image src="/static/gobuster_2.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
+{{< image src="/static/gobuster_2.png" alt="gobuster_2" position="center" style="border-radius: 8px;" >}}
 
 Navigating to the readme file at `http://$IP/nibbleblog/README`
 
 we can see the version the blog is running
 
-{{< image src="/static/nibbles_version.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
+{{< image src="/static/nibbles_version.png" alt="nibbles_version" position="center" style="border-radius: 8px;" >}}
 
 After doing some research on google, I found there is a RCE on this version of nibbleblog, but we need to be authenticated. 
 
@@ -85,7 +84,7 @@ I will be using this script from github (https://github.com/dix0nym/CVE-2015-696
 
 when you setup the php reverse shell be sure to edit the file and add your IP & port that you will be listening on.
 
-{{< image src="/static/php_revshell.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
+{{< image src="/static/php_revshell.png" alt="php_revshell" position="center" style="border-radius: 8px;" >}}
 
 Once finished you can proceed with these steps
 
@@ -103,7 +102,7 @@ python3 exploit.py --url http://10.129.30.217/nibbleblog/ --username admin --pas
 
 After running the script check your reverse shell and you should see the following - 
 
-{{< image src="/static/nc_shell.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
+{{< image src="/static/nc_shell.png" alt="nc_shell" position="center" style="border-radius: 8px;" >}}
 
 Upgrading our shell (make the reverse shell more stable)
 
@@ -121,7 +120,7 @@ python3 -c 'import pty;pty.spawn("/bin/bash")'
 
 after running you should see this - 
 
-{{< image src="/static/shell_upgrade1.png" alt="Error3" position="center" style="border-radius: 8px;" >}}
+{{< image src="/static/shell_upgrade1.png" alt="shell_upgrade" position="center" style="border-radius: 8px;" >}}
 
 Now we can make it even better with the following - 
 
